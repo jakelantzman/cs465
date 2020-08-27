@@ -45,19 +45,28 @@
 # If you want to upload a single file, make sure the file is named as `solution.py` or `solution.cpp`.
 # If you submit via GitHub, make sure your file is located in directory `assignment1/problem1/solution.py` or `assignment1/problem1/solution.cpp`.
 
-
+# The mergeSortedArrays function will take in two arrays that are already sorted and produce an array that is the sorted, merged
+# result of the two sorted arrays
 def mergeSortedArrays(array1, array2): 
+
+    # Extract the array length from the first integer of each array
     array1Length = int(array1.pop(0))
     array2Length = int(array2.pop(0))
 
+    # Convert each item in the array to an integer
     for x in array1: 
         array1[array1.index(x)] = int(x)
     for y in array2: 
         array2[array2.index(y)] = int(y)
 
+    # Initialize the loop variable and the output array, in this case the output array is called array3
     loop = array1Length + array2Length
     array3 = []
-    while True: 
+
+    # Loop through each array and evaluate at each index which integer to insert into the output array,
+    # if the length of either array becomes zero throughout the loop, append all remaining integers from
+    # the other array to the output array
+    while loop > 0: 
         if(len(array1) == 0):
             for i in array2:
                 array3.append(int(i))
@@ -78,10 +87,15 @@ def mergeSortedArrays(array1, array2):
             array1.pop(0)
             array2.pop(0)
         loop -= 1
+    
+    # Insert the final sorted array length into the beginning of the array
     array3.insert(0, len(array3))
+
+    # Parse the array for output dictated by the assignment guidelines
     for x in array3:
         print(x, end=" ")
 
+# Main function to drive the code and take inputs
 def main():
     input1 = input("Enter the first sorted array: ")
     input2 = input("Enter the second sorted array: ")
