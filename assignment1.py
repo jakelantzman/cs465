@@ -92,8 +92,10 @@ def mergeSortedArrays(array1, array2):
     array3.insert(0, len(array3))
 
     # Parse the array for output dictated by the assignment guidelines
+    output = ""
     for x in array3:
-        print(x, end=" ")
+        output += str(x) + " "
+    print(output.rstrip())
 
 # Main function to drive the code and take inputs
 def main():
