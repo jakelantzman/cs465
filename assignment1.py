@@ -47,37 +47,38 @@
 
 
 def mergeSortedArrays(array1, array2): 
-    array1Length = array1.pop(0)
-    array2Length = array2.pop(0)
+    array1Length = int(array1.pop(0))
+    array2Length = int(array2.pop(0))
 
     for x in array1: 
-        array1[array1.index(x)] = int(array1[x])
+        array1[array1.index(x)] = int(x)
     for y in array2: 
-        array2[array2.index(x)] = int(array2[x])
+        array2[array2.index(y)] = int(y)
 
-    x1 = 0
-    x2 = 0
-    x3 = 0
     loop = array1Length + array2Length
     array3 = []
-    while loop > 0: 
-        if(array1[x1] < array2[x2]):
-            array3[x3] = array1[x1]
-            x1 += 1
-            x3 += 1
-        if(array1[x1] > array2[x2]):
-            array3[x3] = array2[x2]
-            x2 += 1
-            x3 += 1
-        if(array1[x1] == array2[x2]):
-            array3[x3] = array1[x1]
-            x3 += 1
-            array3[x3] = array2[x2]
-            x1 += 1
-            x2 += 1
-            x3 += 1
+    while True: 
+        if(len(array1) == 0):
+            for i in array2:
+                array3.append(int(i))
+            break
+        elif(len(array2) == 0):
+            for i in array1:
+                array3.append(int(i))
+            break
+        elif(array1[0] < array2[0]):
+            array3.append(array1[0])
+            array1.pop(0)
+        elif(array1[0] > array2[0]):
+            array3.append(array2[0])
+            array2.pop(0)
+        elif(array1[0] == array2[0]):
+            array3.append(array1[0])
+            array3.append(array2[0])
+            array1.pop(0)
+            array2.pop(0)
         loop -= 1
-        
+    print(array3)
 
 def main():
     input1 = input("Enter the first sorted array: ")
