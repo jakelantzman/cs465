@@ -78,7 +78,9 @@ def mergeSortedArrays(array1, array2):
             array1.pop(0)
             array2.pop(0)
         loop -= 1
-    print(array3)
+    array3.insert(0, len(array3))
+    for x in array3:
+        print(x, end=" ")
 
 def main():
     input1 = input("Enter the first sorted array: ")
