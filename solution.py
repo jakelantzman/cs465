@@ -68,16 +68,8 @@ def mergeSortedArrays(array1, array2):
     # Loop through each array and evaluate at each index which integer to insert into the output array,
     # if the length of either array becomes zero throughout the loop, append all remaining integers from
     # the other array to the output array
-    while loop > 0: 
-        if(len(array1) == 0):
-            for i in array2:
-                array3.append(int(i))
-            break
-        elif(len(array2) == 0):
-            for i in array1:
-                array3.append(int(i))
-            break
-        elif(array1[0] < array2[0]):
+    while len(array1) != 0 and len(array2) != 0: 
+        if(array1[0] < array2[0]):
             array3.append(array1[0])
             array1.pop(0)
         elif(array1[0] > array2[0]):
@@ -88,7 +80,13 @@ def mergeSortedArrays(array1, array2):
             array3.append(array2[0])
             array1.pop(0)
             array2.pop(0)
-        loop -= 1
+
+    if(len(array1) == 0):
+        for i in array2:
+            array3.append(int(i))
+    elif(len(array2) == 0):
+        for i in array1:
+            array3.append(int(i))
     
     # Insert the final sorted array length into the beginning of the array
     array3.insert(0, len(array3))
