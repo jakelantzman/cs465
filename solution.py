@@ -45,6 +45,8 @@
 # If you want to upload a single file, make sure the file is named as `solution.py` or `solution.cpp`.
 # If you submit via GitHub, make sure your file is located in directory `assignment1/problem1/solution.py` or `assignment1/problem1/solution.cpp`.
 
+
+import fileinput
 # The mergeSortedArrays function will take in two arrays that are already sorted and produce an array that is the sorted, merged
 # result of the two sorted arrays
 def mergeSortedArrays(array1, array2): 
@@ -99,10 +101,15 @@ def mergeSortedArrays(array1, array2):
 
 # Main function to drive the code and take inputs
 def main():
-    input1 = input("Enter the first sorted array: ")
-    input2 = input("Enter the second sorted array: ")
-    array1 = input1.split()
-    array2 = input2.split()
+    hold = []
+    test = ""
+    array1 = []
+    array2 = []
+    for line in fileinput.input():
+        test += line
+    hold = test.split('\n')
+    array1 = hold[0].split()
+    array2 = hold[1].split()
     mergeSortedArrays(array1, array2)
 
 if __name__ == '__main__':
