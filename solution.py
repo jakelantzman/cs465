@@ -56,13 +56,10 @@ def mergeSortedArrays(array1, array2):
     array2Length = int(array2.pop(0))
 
     # Convert each item in the array to an integer
-    for x in array1: 
-        array1[array1.index(x)] = int(x)
-    for y in array2: 
-        array2[array2.index(y)] = int(y)
+    array1 = map(int, array1)
+    array2 = map(int, array2)
 
     # Initialize the loop variable and the output array, in this case the output array is called array3
-    loop = array1Length + array2Length
     array3 = []
 
     # Loop through each array and evaluate at each index which integer to insert into the output array,
