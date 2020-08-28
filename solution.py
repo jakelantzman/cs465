@@ -103,7 +103,7 @@ def main():
     for line in fileinput.input():
         test += line
     hold = test.split('\n')
-    array1 = hold[0].split()
+    array1 = hold[1].split()
     array2 = hold[1].split()
     mergeSortedArrays(array1, array2)
 
