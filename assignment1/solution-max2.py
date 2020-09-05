@@ -8,8 +8,8 @@ def makeSubArray(arrayInit, length):
     #length = int(length)
     if length > 1:
         midpoint = length // 2
-        leftArray = arrayInit[:midpoint+1]
-        rightArray = arrayInit[midpoint+1:]
+        leftArray = arrayInit[:midpoint]
+        rightArray = arrayInit[midpoint:]
     #print(f"left arr {leftArray}, right arr {rightArray}")
 
     # print(f"midpoint {midpoint}")
@@ -22,41 +22,40 @@ def makeSubArray(arrayInit, length):
         rightArray = []
     return leftArray, rightArray
 
+def castToInt(starting_arr, starting_len):
+    starting_len = int(starting_len)
+
+    for i in range(starting_len):
+        starting_arr[i] = int(starting_arr[i])
+
+    return starting_arr, starting_len
+
+
 def mergeSortedArrays(left_arr, right_arr, out_arr): 
 
-    # Convert each item in the array to an integer
-    #array1 = list(map(int, left_arr))
-    #array2 = list(map(int, right_arr))
-    array1 = [int(i) for i in left_arr]
-    array2 = [int(i) for i in right_arr]
-
-
-    i = 0
-    j = 0
+    left_count = 0
+    right_count = 0
     # Loop through each array and evaluate at each index which integer to insert into the output array,
     # if the length of either array becomes zero throughout the loop, append all remaining integers from
     # the other array to the output array
-    while len(array1) > i and len(array2) > j:
-        if(array1[i] < array2[j]):
-            out_arr.append(array1[i])
-            i += 1
-            print(f"if 1 arr1 {array1}, arr2 {array2}, out {out_arr}")
-        elif(array1[i] > array2[j]):
-            out_arr.append(array2[j])
-            j += 1
-            print(f"if 2 arr1 {array1}, arr2 {array2}, out {out_arr}")
-        elif(array1[i] == array2[j]):
-            out_arr.append(array1[i])
-            out_arr.append(array2[j])
-            i += 1
-            j += 1
-            print(f"if 3 arr1 {array1}, arr2 {array2}, out {out_arr}")
+    while len(left_arr) > left_count and len(right_arr) > right_count:
+        if(left_arr[left_count] < right_arr[right_count]):
+            out_arr.append(left_arr[left_count])
+            left_count += 1
+        elif(left_arr[left_count] > right_arr[right_count]):
+            out_arr.append(right_arr[right_count])
+            right_count += 1
+        elif(left_arr[left_count] == right_arr[right_count]):
+            out_arr.append(left_arr[left_count])
+            out_arr.append(right_arr[right_count])
+            left_count += 1
+            right_count += 1
 
-    if(len(array1) == 0):
-        for i in array2:
+    if(len(left_arr) == 0):
+        for i in right_arr:
             out_arr.append(int(i))
-    elif(len(array2) == 0):
-        for i in array1:
+    elif(len(right_arr) == 0):
+        for i in left_arr:
             out_arr.append(int(i))
 
     # print(f"out arr {out_arr}")
@@ -65,13 +64,26 @@ def mergeSortedArrays(left_arr, right_arr, out_arr):
 
 def mergeSort(orig_array, orig_size, sort_arr): 
     orig_size = int(orig_size)
+    print(orig_size)
 
-    if orig_size > 1:    
-        half1, half2 = makeSubArray(orig_array, orig_size)
-        half1 = mergeSort(half1, len(half1), sort_arr)
-        half2 = mergeSort(half2, len(half2), sort_arr)
+    if orig_size > 1:
+        midpoint = orig_size // 2
+        leftArray = orig_array[:midpoint]
+        rightArray = orig_array[midpoint:]
 
-        sort_arr = mergeSortedArrays(half1, half2, sort_arr)
+        print(f"left before: {leftArray}")
+        print(f"rigth before: {rightArray}")
+
+        left_len = len(leftArray)
+        right_len = len(rightArray)
+
+        print(f"left len: {left_len}")
+        print(f"rigth len: {right_len}")
+
+        leftArray, rightArray = mergeSort(leftArray, left_len, sort_arr), mergeSort(rightArray, right_len, sort_arr)
+        print(f"left after: {leftArray}")
+
+        sort_arr = mergeSortedArrays(leftArray, rightArray, sort_arr)
     else:
         # Parse the array for output dictated by the assignment guidelines
         output = ""
@@ -104,6 +116,7 @@ def main():
     hold = test.split('\n')
     length = hold.pop(0)
     arrayInit = hold[0].split()
+    arrayInit, length = castToInt(arrayInit, length)
     mergeSort(arrayInit, length, array3)
 
 if __name__ == '__main__':
