@@ -8,8 +8,9 @@ def makeSubArray(arrayInit, length):
     #length = int(length)
 
     midpoint = length // 2
-    leftArray = arrayInit[:midpoint]
+    leftArray = arrayInit[:midpoint+1]
     rightArray = arrayInit[midpoint+1:]
+    print(f"left arr {leftArray}, right arr {rightArray}")
 
     # print(f"midpoint {midpoint}")
     # print(f"left arr {leftArray}")
@@ -26,18 +27,26 @@ def mergeSortedArrays(left_arr, right_arr, out_arr):
     array2 = [int(i) for i in right_arr]
 
 
-
+    i = 0
+    j = 0
     # Loop through each array and evaluate at each index which integer to insert into the output array,
     # if the length of either array becomes zero throughout the loop, append all remaining integers from
     # the other array to the output array
-    while len(array1) != 0 and len(array2) != 0: 
-        if(array1[0] < array2[0]):
-            out_arr.append(array1[0])
-        elif(array1[0] > array2[0]):
-            out_arr.append(array2[0])
-        elif(array1[0] == array2[0]):
-            out_arr.append(array1[0])
-            out_arr.append(array2[0])
+    while len(array1) > i and len(array2) > j:
+        if(array1[i] < array2[j]):
+            out_arr.append(array1[i])
+            i += 1
+            print(f"if 1 arr1 {array1}, arr2 {array2}, out {out_arr}")
+        elif(array1[i] > array2[j]):
+            out_arr.append(array2[j])
+            j += 1
+            print(f"if 2 arr1 {array1}, arr2 {array2}, out {out_arr}")
+        elif(array1[i] == array2[j]):
+            out_arr.append(array1[i])
+            out_arr.append(array2[j])
+            i += 1
+            j += 1
+            print(f"if 3 arr1 {array1}, arr2 {array2}, out {out_arr}")
 
     if(len(array1) == 0):
         for i in array2:
