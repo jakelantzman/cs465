@@ -6,16 +6,20 @@ def makeSubArray(arrayInit, length):
     #arrayInit = list(map(int, arrayInit))
     arrayInit = [int(i) for i in arrayInit]
     #length = int(length)
-
-    midpoint = length // 2
-    leftArray = arrayInit[:midpoint+1]
-    rightArray = arrayInit[midpoint+1:]
-    print(f"left arr {leftArray}, right arr {rightArray}")
+    if length > 1:
+        midpoint = length // 2
+        leftArray = arrayInit[:midpoint+1]
+        rightArray = arrayInit[midpoint+1:]
+    #print(f"left arr {leftArray}, right arr {rightArray}")
 
     # print(f"midpoint {midpoint}")
     # print(f"left arr {leftArray}")
     # print(f"right arr {rightArray}")
 
+        
+    else:
+        leftArray = arrayInit[0]
+        rightArray = []
     return leftArray, rightArray
 
 def mergeSortedArrays(left_arr, right_arr, out_arr): 
@@ -64,6 +68,8 @@ def mergeSort(orig_array, orig_size, sort_arr):
 
     if orig_size > 1:    
         half1, half2 = makeSubArray(orig_array, orig_size)
+        half1 = mergeSort(half1, len(half1), sort_arr)
+        half2 = mergeSort(half2, len(half2), sort_arr)
 
         sort_arr = mergeSortedArrays(half1, half2, sort_arr)
     else:
