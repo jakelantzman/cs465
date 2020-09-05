@@ -15,7 +15,8 @@ def castToInt(starting_arr, starting_len):
     return starting_arr, starting_len
 
 
-def mergeSortedArrays(left_arr, right_arr, out_arr): 
+def mergeSortedArrays(left_arr, right_arr): 
+    out_arr = []
 
     left_count = 0
     right_count = 0
@@ -35,10 +36,10 @@ def mergeSortedArrays(left_arr, right_arr, out_arr):
             left_count += 1
             right_count += 1
 
-    if(len(left_arr) == 0):
+    if len(left_arr) == left_count:
         for i in right_arr[right_count:]:
             out_arr.append(int(i))
-    elif(len(right_arr) == 0):
+    elif len(right_arr) == right_count:
         for i in left_arr[left_count:]:
             out_arr.append(int(i))
 
@@ -66,27 +67,15 @@ def mergeSort(orig_array, orig_size, sort_arr):
         # print(f"rigth len: {right_len}")
 
         leftArray, rightArray = mergeSort(leftArray, left_len, sort_arr), mergeSort(rightArray, right_len, sort_arr)
-        print(f"left after: {leftArray}")
 
-        sort_arr = mergeSortedArrays(leftArray, rightArray, sort_arr)
+        sort_arr = mergeSortedArrays(leftArray, rightArray)
     else:
-        # Parse the array for output dictated by the assignment guidelines
-        output = ""
-        for x in sort_arr:
-            output += str(x) + " "
-        print(output.rstrip())
+        return sort_arr
 
 
         #print(sort_arr)
 
-    # Parse the array for output dictated by the assignment guidelines
-    output = ""
-    for x in sort_arr:
-        output += str(x) + " "
-    print(output.rstrip())
-
-
-    #print(sort_arr)
+    return sort_arr
     
 
 # Main function to drive the code and take inputs
@@ -102,7 +91,14 @@ def main():
     length = hold.pop(0)
     arrayInit = hold[0].split()
     arrayInit, length = castToInt(arrayInit, length)
-    mergeSort(arrayInit, length, array3)
+    array3 = mergeSort(arrayInit, length, array3)
+
+    # Parse the array for output dictated by the assignment guidelines
+    output = ""
+    for x in array3:
+        output += str(x) + " "
+    print(output.rstrip())
+
 
 if __name__ == '__main__':
     main()
