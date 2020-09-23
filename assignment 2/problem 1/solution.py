@@ -3,20 +3,13 @@ Team Members: Jacob Lantzman, Spencer Leahy, Maxwell Molden
 '''
 
 import fileinput
+import itertools
 
 def makePairs(arr, size):
-    pairs = []
-    pair_count = 0
-    for i in range(0, size):
-        for j in range(0, size):
-            pair = (arr[i], arr[j])
-            pairs.append(pair)
-    
-    for i in range(0, size):
-        for j in range(0, size):
-            if (i < j) and (pairs[i] > pairs[j]):
-                pair_count += 1
-    return pair_count
+    pairs = [(arr[j], arr[i]) for j in range(size) for i in range(size)]
+    count = [(arr[j], arr[i]) for j in range(size) for i in range(size) if (i < j) and (pairs[i] > pairs[j])]
+
+    return len(count)
 
 def main():
     # do whatever to make n = first line
@@ -33,8 +26,8 @@ def main():
     length = int(length[0])
     array = list(map(int, array))
 
-    mathces = makePairs(array, length)
-    print(mathces)
+    matches = makePairs(array, length)
+    print(matches)
 
 if __name__ == '__main__':
-    main() 
+    main()
